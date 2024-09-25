@@ -1,3 +1,9 @@
+# git 合并的逻辑
+1. 先在本地分支dev上面pull远程分支dev，然后进行开发（修改）
+2. 修改完成后，切换到本地主分支main，使用git merge dev合并
+3. 再将本地主分支main的内容push到远程主分支main
+
+
 # git pull
 1、将远程指定分支 拉取到 本地指定分支上：
 ```javascript
