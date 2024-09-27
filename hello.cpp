@@ -2,27 +2,44 @@
 #include<string>
 using namespace std;
 
-//1、引用作为重载条件
-void func(int &a){
-    cout << "func(int &a)调用" << endl;
-}
+//成员属性设置为私有
+//1、可以自己控制读写权限
+//2、对于写可以检测数据有效性
+class Person{
+//用公有的方法对私有变量进行可读可写
+public:
+//设置姓名
+    void setName(string name){
+        m_Name = name;
+    }
+//获取姓名
+    string getName(){
+        return m_Name;
+    }
+//获取年龄
+    int getAge(){
+        return m_Age;
+    }
+//设置偶像
+    void setIdol(string idol){
+        m_Idol = idol;
+    }
 
-void func(const int &a){
-    cout << "func(const int &a)调用" << endl;
-}
+private:
+    string m_Name; //姓名 可读可写
 
+    int m_Age = 18; //年龄 只读
 
-//2、函数重载碰到函数默认参数
-void func2(int a){
-    cout << "func(int a)调用" << endl;
-}
+    string m_Idol; //偶像 只写
 
-void func2(int a, int b = 20){
-    cout << "func2(int a, int b = 20)调用" << endl;
-}
-
+};
 
 int main(){
-    func2(10, 20);
+    //实例化具体对象
+    Person p1;
+    p1.setName("lays");
+    cout << "姓名为：" << p1.getName() << endl;
+    cout << "年龄为：" << p1.getAge() << endl;
+
     return 0;
 }
