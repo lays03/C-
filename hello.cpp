@@ -1,42 +1,53 @@
-#include<iostream>
-#include<string>
+#include <iostream>
+#include <string>
 using namespace std;
 
-class Phone{
-public:
-    string m_pname; //手机名字
-    Phone(string name){
-        cout << "Phone的构造函数调用" << endl;
-        m_pname = name;
-    }
-    ~Phone(){
-        cout << "Phone的析构函数调用" << endl;
-    }
-};
-
+//静态成员变量
 class Person{
 public:
-    //姓名
-    string m_name;
-    //手机
-    Phone m_phone;
-    
-    //这里的m_phone(name) 相当于 Phone m_phone = pname 隐式转换法
-    Person(string name, string pname):m_name(name), m_phone(pname){
-        cout << "Person的构造函数调用" << endl;
-    }
-    ~Person(){
-        cout << "Person的析构函数调用" << endl;
-    }
-
+    /*
+    - 所有对象共享同一份数据
+    - 在编译阶段分配内存
+    - 类内声明，类外初始化
+    */
+    static int m_age;
+    //静态成员变量也是有访问权限的
+private:
+    static int m_A;
 };
-//当其他类对象作为本类成员，构造时候先构造类对象，再构造自身
-//析构的顺序与之相反
+
+//告知编译器，这是Person类作用域下的成员
+//类内声明，类外初始化
+int Person::m_age = 100;
+int Person::m_A = 1000;
+
 void test01(){
-    Person p1("liujing", "iphone15");
-    cout << p1.m_name << "的手机是" << p1.m_phone.m_pname << endl;
+    Person p1;
+    cout << p1.m_age << endl; //100
+
+    Person p2;
+    p2.m_age = 200;
+
+    cout << p2.m_age << endl; //200
+    //因为m_age是所有对象共享的一份数据，p2将其修改为200，p1对象的m_age同样也变成了200
+}
+
+void test02(){
+    //静态成员变量 不属于某个对象上，所有对象都共享同一份数据
+    //因此静态成员变量有两种访问方式
+    
+    //1、通过对象访问
+    Person p;
+    cout << p.m_age << endl;
+
+    //2、通过类名进行访问
+    cout << Person::m_age << endl;
+
+    // cout << Person::m_A << endl; 错误，类外访问不到私有静态成员变量
 }
 
 int main(){
-    test01();
+    // test01();
+    test02();
+    return 0;
 }
