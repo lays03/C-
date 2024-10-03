@@ -1,2 +1,1 @@
-    // Person p;
-    // cout << p.m_age << endl;
+cout << "visit2 函数正在访问：" << building->m_BedRoom << endl;
