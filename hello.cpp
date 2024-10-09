@@ -2,69 +2,41 @@
 #include <string>
 using namespace std;
 
-class Building;
-class GoodGay
+class Person
 {
 public:
-    GoodGay();
-    Building *building;
-    void visit(); //让visit函数可以访问Building中私有成员
-    void visit2(); //让visit2函数不可以访问Building中私有成员
-};
-
-class Building
-{
-    //告诉编译器 GoodGay类下的visit成员函数作为本类的好朋友，可以访问私有成员
-    friend void GoodGay::visit();
-public:
-    Building();
-
-public:
-    string m_SittingRoom; //客厅
-
+    Person(int a, int b)
+    {
+        m_A = a;
+        m_B = b;
+    }
+    friend ostream &operator<<(ostream &cout ,Person &p);
 private:
-    string m_BedRoom; //卧室
+    int m_A;
+    int m_B;
+    //利用成员函数重载 左移运算符 
+    //不会利用成员函数重载<<运算符，因为无法实现cout在左侧
+    // void operator<<(Person &p)
+    // {
+
+    // }
+    
 };
 
-
-//类外实现
-Building::Building()
+//只能利用全局函数重载左移运算符
+ostream &operator<<(ostream &cout ,Person &p) //本质： operator << (cout, p) 简化 cout << p
 {
-    m_SittingRoom = "客厅";
-    m_BedRoom = "卧室";
+    cout << "m_A = " << p.m_A << " m_B = " << p.m_B;
+    return cout; //返回cout就可以一直返回
 }
-
-GoodGay::GoodGay()
-{
-    building = new Building;
-}
-
-void GoodGay::visit()
-{
-    cout << "visit 函数正在访问：" << building->m_SittingRoom << endl;
-
-    cout << "visit 函数正在访问：" << building->m_BedRoom << endl;
-
-
-}
-
-void GoodGay::visit2()
-{
-    cout << "visit2 函数正在访问：" << building->m_SittingRoom << endl;
-
-    //cout << "visit2 函数正在访问：" << building->m_BedRoom << endl;
-}
-
-
 void test01()
 {
-    GoodGay gg;
-    gg.visit();
-    gg.visit2();
+    Person p(10, 10);
+    cout << p << endl << "hello world";
 }
+
 
 int main()
 {
     test01();
-    return 0;
 }
