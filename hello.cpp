@@ -2,39 +2,46 @@
 #include <string>
 using namespace std;
 
-class Person
+class Base
 {
 public:
-    Person(int a, int b)
-    {
-        m_A = a;
-        m_B = b;
-    }
-    friend ostream &operator<<(ostream &cout ,Person &p);
-private:
     int m_A;
-    int m_B;
-    //利用成员函数重载 左移运算符 
-    //不会利用成员函数重载<<运算符，因为无法实现cout在左侧
-    // void operator<<(Person &p)
-    // {
-
-    // }
-    
+    Base()
+    {
+        m_A = 100;
+    }
+    void func()
+    {
+        cout << "Base - func()调用" << endl;
+    }
+    void func(int a)
+    {
+        cout << "Base - func(int a)调用  a = " << a << endl;
+    }
 };
 
-//只能利用全局函数重载左移运算符
-ostream &operator<<(ostream &cout ,Person &p) //本质： operator << (cout, p) 简化 cout << p
-{
-    cout << "m_A = " << p.m_A << " m_B = " << p.m_B;
-    return cout; //返回cout就可以一直返回
-}
+class Son: public Base{
+public:
+    int m_A;
+    Son()
+    {
+        m_A = 200;
+    }
+    void func()
+    {
+        cout << "Son - func()调用" << endl;
+    }
+};
 void test01()
 {
-    Person p(10, 10);
-    cout << p << endl << "hello world";
-}
+    Son s1;
+    s1.func(); //直接访问即可
+    s1.Base::func(); //需要加作用域
+    cout << "s1.m_A = " << s1.m_A << endl; //直接访问即可  200
+    cout << "s1.Base.m_A = " << s1.Base::m_A << endl; //需要加作用域  100
 
+    s1.Base::func(1000);
+}
 
 int main()
 {
