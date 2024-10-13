@@ -2,45 +2,72 @@
 #include <string>
 using namespace std;
 
-class Base
+//动物类
+class Animal
 {
 public:
-    int m_A;
-    Base()
+    //纯虚函数
+    virtual void speak() = 0;
+
+    Animal()
     {
-        m_A = 100;
+        cout << "Animal构造函数调用" << endl;
     }
-    void func()
+    //利用虚析构可以解决 父类指针释放子类对象时不干净的问题
+    // virtual ~Animal() 
+    // {
+    //     cout << "Animal析构函数调用" << endl;
+    // }
+    //纯虚析构 这个函数也需要实现 因为父类也有可能在堆区有数据需要delete
+    //有了纯虚析构之后，这个类也属于抽象类，无法实例化对象
+    virtual ~Animal() = 0;
+};
+
+//Animal下的纯虚析构
+Animal::~Animal()
+{
+    cout << "Animal纯虚析构调用" <<endl;
+} 
+
+//猫类
+class Cat :public Animal
+{
+public:
+    void speak()
     {
-        cout << "Base - func()调用" << endl;
+        cout << *m_Name << "小猫在说话" << endl;
     }
-    void func(int a)
+    string *m_Name;
+    Cat(string name)
     {
-        cout << "Base - func(int a)调用  a = " << a << endl;
+        cout << "Cat构造函数调用" << endl;
+        m_Name = new string(name);
+    }
+    ~Cat()
+    {
+        if(m_Name != NULL)
+        {
+            cout << "Cat析构函数调用" << endl;
+            delete m_Name;
+        }
     }
 };
 
-class Son: public Base{
-public:
-    int m_A;
-    Son()
-    {
-        m_A = 200;
-    }
-    void func()
-    {
-        cout << "Son - func()调用" << endl;
-    }
-};
+//执行说话的函数
+//函数地址早绑定 编译阶段就确认了函数的地址
+//如果想执行让猫说话，那么这个函数地址就不能提前绑定，需要在运行阶段进行绑定，地址晚绑定
+void doSpeak(Animal &animal) //Animal &animal = cat;
+{
+    animal.speak(); 
+}
+
 void test01()
 {
-    Son s1;
-    s1.func(); //直接访问即可
-    s1.Base::func(); //需要加作用域
-    cout << "s1.m_A = " << s1.m_A << endl; //直接访问即可  200
-    cout << "s1.Base.m_A = " << s1.Base::m_A << endl; //需要加作用域  100
+    Animal * animal = new Cat("刘静");
+    animal->speak();
+    //父类指针在析构时候 不会调用子类中析构函数，导致子类如果有堆区属性，出现内存泄漏
+    delete animal;
 
-    s1.Base::func(1000);
 }
 
 int main()
