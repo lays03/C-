@@ -4,6 +4,11 @@
 #include <fstream>
 using namespace std;
 #include "worker.h"
+#include "employee.h"
+#include "manager.h"
+#include "boss.h"
+
+#define FILENAME "empFile.txt"
 
 class WorkerManager
 {
@@ -24,6 +29,12 @@ public:
     void exitSystem();
 
     //添加成员
-    void addWorker();
+    void addEmp();
+
+    //保存文件
+    void save();
+
+    //输出文件
+    void showfile();
 
 };

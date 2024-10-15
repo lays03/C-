@@ -3,29 +3,30 @@
 #include <fstream>
 using namespace std;
 
-#include "workerManage.h".
+#include "workerManage.h"
 #include "worker.h"
 #include "employee.h"
 #include "manager.h"
 #include "boss.h"
 
-void test01()
-{
-    Worker *wk1 = new Employee("001", "刘静", 1);
-    wk1->showInfo();
-    cout << "该员工职级为：" << wk1->getDeptname() << endl;
+// void test01()
+// {
+//     Worker *wk1 = new Employee("001", "刘静", 1);
+//     cout << "职工编号：" << wk1->m_id
+//          << "\t姓名: " << wk1->m_name
+//          << "\t部门编号: " << wk1->m_deptid << endl;
+//     delete wk1;
 
-    Worker *wk2 = new Manager("002", "刘静", 2);
-    wk2->showInfo();
-    cout << "该员工职级为：" << wk2->getDeptname() << endl;
+//     Worker *wk2 = new Manager("002", "方清", 2);
+//     cout << "职工编号：" << wk2->m_id
+//          << "\t姓名: " << wk2->m_name
+//          << "\t部门编号: " << wk2->m_deptid << endl;
+//     delete wk2;
+// }
 
-    Worker *wk3 = new Boss("003", "刘静", 3);
-    wk3->showInfo();
-    cout << "该员工职级为：" << wk3->getDeptname() << endl;
-}
 int main()
 {
-    test01();
+    // test01();
     WorkerManager wm;
     int choice = 0;
 
@@ -42,7 +43,7 @@ int main()
             break;
         case 1:
         {
-            wm.addWorker();
+            wm.addEmp();
             //添加职工信息
 
         }
