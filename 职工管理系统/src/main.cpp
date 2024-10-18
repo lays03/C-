@@ -43,46 +43,45 @@ int main()
             break;
         case 1:
         {
-            wm.addEmp();
             //添加职工信息
-
+            wm.addEmp();
         }
             break;
         case 2:
         {
             //显示职工信息
-
+            wm.Show_Emp();
         }
             break;
         case 3:
         {
             //删除离职职工
-
+            wm.Del_Emp();
         }
             break;
         case 4:
         {
             //修改职工信息
-
+            wm.Mod_Emp();
         }
             break;
         case 5:
         {
             //查找职工信息
-
+            wm.Find_Emp();
         }
             break;
         case 6:
         {
             //按照编号排序
-
+            wm.Sort_Emp();
         }
+            break;
         case 7:
         {
             //清空所有文档
-
+            wm.Clean_File();
         }
-            break;
             break;
         default:
             break;

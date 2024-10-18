@@ -1,2 +1,9 @@
 1	yier	1
-2	bubu	2
+2	bubu	1
+3	mitao	1
+4	huihui	1
+9	jj	2
+21	wang	3
+23	lisi	2
+39	wang	3
+111	liujing	3
