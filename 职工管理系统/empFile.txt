@@ -7,3 +7,4 @@
 23	lisi	2
 39	wang	3
 111	liujing	3
+12	·½	3

@@ -47,3 +47,7 @@
 - 职工管理系统全部写完了
 
 [职工管理系统](https://www.bilibili.com/video/BV1et411b73Z/?p=166&spm_id_from=333.1007.top_right_bar_window_history.content.click&vd_source=f02a07afc8160e089745b694f3e19792)
+
+
+## 2024.10.24
+- 函数模板的学习(学到了 类模板对象做函数参数)
