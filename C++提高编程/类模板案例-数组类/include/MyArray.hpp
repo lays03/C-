@@ -7,173 +7,107 @@ template<class T>
 class MyArray
 {
 public:
-    //构造函数
-    MyArray(int size);
+    //有参构造 参数 容量
+    MyArray(int capacity)
+    {
+        this->m_Capacity = capacity;
+        this->m_Size = 0;
+        this->pAddress = new T[this->m_Capacity];
+    }
 
     //拷贝构造函数
-    MyArray(const MyArray<T>& myarr);
+    MyArray(const MyArray& arr)
+    {
+        this->m_Capacity = arr.m_Capacity;
+        this->m_Size = arr.m_Size;
+        //深拷贝
+        this->pAddress = new T[arr.m_Capacity];
+        for(int i = 0; i < this->m_Size; ++i)
+        {
+            this->pAddress[i] = arr.pAddress[i];
+        }
+    }
 
-    //析构函数
-    ~MyArray();
+    //operator= 防止浅拷贝问题
+    MyArray& operator=(const MyArray &arr)
+    {
+        cout << "operator= 调用" << endl;
+        if(this->pAddress != NULL)
+        {
+            delete [] this->pAddress;
+            this->pAddress = NULL;
+            this->m_Capacity = 0;
+            this->m_Size = 0;
+        }
 
-    //重载=
-    MyArray& operator=(MyArray &myarr);
+        this->m_Capacity = arr.m_Capacity;
+        this->m_Size = arr.m_Size;
+        this->pAddress = new T[arr.m_Capacity];
+        for(int i = 0; i < this->m_Size; ++i)
+        {
+            this->pAddress[i] = arr.pAddress[i];
+        }
+        return *this;
+    }
 
     //尾插法
-    void myAdd(T num);
+    void Push_Back(const T &val)
+    {
+        //判断容量是否等于大小
+        if(this->m_Capacity == this->m_Size)
+        {
+            return;
+        }
+        this->pAddress[this->m_Size] = val; //在数组末尾插入数据
+        this->m_Size ++;
+    }
 
     //尾删法
-    void mySub();
+    void Pop_Back()
+    {
+        //让用户访问不到最后一个元素，即为尾删，逻辑删除
+        if(this->m_Size == 0)
+        {
+            return;
+        }
+        this->m_Size--;
+    }
 
-    //通过下标访问数组中的元素
-    T getNum(int index);
+    //通过下标的方式访问数组中的元素
+    //重载[] 运算符
+    T& operator[](int index)
+    {
+        return this->pAddress[index];
+    }
 
-    //获取数组中当前元素个数
-    int getNumCounter();
+    //返回数组的容量
+    int getCapacity()
+    {
+        return this->m_Capacity;
+    }
 
-    //获取数组的容量
-    int getArrSize();
+    //返回数组的大小
+    int getSize()
+    {
+        return this->m_Size;
+    }
 
-public:
-    int m_size; //数组长度
-    T *m_arr; //数组
+
+    //析构函数
+    ~MyArray()
+    {
+        if(this->pAddress != NULL)
+        {
+            delete [] this->pAddress;
+            this->pAddress = NULL;
+        }
+    }
+
+
+private:
+    T * pAddress; //指针指向堆区开辟的真是数组
+    int m_Capacity; //数组容量
+    int m_Size; //数组大小
+    
 };
 
-//构造函数
-template<class T>
-MyArray<T>::MyArray(int size)
-{
-    cout << "构造函数调用" << endl;
-    this->m_size = size;
-    this->m_arr = new T[size];
-    for(int i = 0; i < this->m_size; ++i)
-    {
-        this->m_arr[i] = NULL;
-    }
-}
-
-//拷贝构造函数
-template<class T>
-MyArray<T>::MyArray(const MyArray<T>& myarr)
-{
-    cout << "拷贝构造函数调用" << endl;
-    this->m_size = myarr.m_size;
-    this->m_arr = myarr.m_arr;
-}
-
-//析构函数
-template<class T>
-MyArray<T>::~MyArray()
-{
-    cout << this << "析构函数调用" << endl;
-    if(this->m_arr != NULL)
-    {
-        for(int i = 0; i < this->m_size; ++i)
-        {
-            this->m_arr[i] = NULL;
-        }
-    }
-    delete this->m_arr;
-    cout << "析构完成" << endl;
-}
-
-//重载=
-template<class T>
-MyArray<T>& MyArray<T>::operator=(MyArray<T>& myarr)
-{
-    if(this->m_arr != NULL)
-    {
-        delete this->m_arr;
-        this->m_arr = NULL;
-    }
-    this->m_arr = new T[myarr.m_size];
-    for(int i = 0; i < this->m_size; ++i)
-    {
-        this->m_arr[i] = myarr.m_arr[i];
-    }
-    return *this;
-}
-
-//尾插法
-template<class T>
-void MyArray<T>::myAdd(T num)
-{
-    //判断数组里面没有填满
-    bool isfull = false;
-    for(int i = 0; i < this->m_size; ++i)
-    {
-        if(this->m_arr[i] != NULL)
-        {
-            continue;
-        }
-        else
-        {
-            //数组没满，把元素的地址放到里面
-            isfull = false;
-            this->m_arr[i] = num;
-            break;
-        }
-    }
-    //如果数组已经满了，则需要开辟新的内存空间
-    if(isfull)
-    {
-        T *number = new T(num);
-        this->m_arr[this->m_size] = *number;
-        this->m_size++;
-    } 
-}
-
-//尾删法
-template<class T>
-void MyArray<T>::mySub()
-{
-    //判断数组里面没有填满
-    bool isfull = true;
-    for(int i = 0; i < this->m_size; ++i)
-    {
-        if(this->m_arr[i] != NULL)
-        {
-            continue;
-        }
-        else
-        {
-            //数组没满，把上一个元素删掉
-            isfull = false;
-            delete this->m_arr[i - 1];
-        }
-    }
-    if(isfull)
-    {
-        delete this->m_arr[this->m_size - 1];
-        this->m_size--;
-    }
-}
-
-//通过下标访问数组中的元素
-template<class T>
-T MyArray<T>::getNum(int index)
-{
-    return this->m_arr[index];
-}
-
-//获取数组中当前元素个数
-template<class T>
-int MyArray<T>::getNumCounter()
-{
-    int counter = 0;
-    for(int i = 0; i < this->m_size; ++i)
-    {
-        if(this->m_arr[i] != NULL)
-        {
-            counter++;
-        }
-    }
-    return counter;
-}
-
-//获取数组的容量
-template<class T>
-int MyArray<T>::getArrSize()
-{
-    return this->m_size;
-}
