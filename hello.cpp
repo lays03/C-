@@ -21,8 +21,7 @@ void printSet(const set<int>& s)
 void test01()
 {
     set<int> s;
-    s.insert(10);
-    s.insert(10);
+    pair<set<int>::iterator, bool> ret = s.insert(10);
 
 }
 
