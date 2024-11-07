@@ -6,49 +6,55 @@
 #include <stack>
 #include <queue>
 #include <list>
+#include <map>
 using namespace std;
 
-void printList(const list<int>& L)
+class Person
 {
-    for(list<int>::const_iterator it = L.begin(); it != L.end(); ++it)
+public:
+    string m_Name;
+    int m_Age;
+    Person(string name, int age)
     {
-        cout << *it << " ";
+        this->m_Name = name;
+        this->m_Age = age;
     }
-    cout << endl;
-}
+};
 
-bool myCompare(int v1, int v2)
+class MyCompare
 {
-    //降序 就让第一个数 > 第二个数
-    return v1 > v2;
-}
+public:
+    bool operator()(const Person &p1, const Person &p2) const
+    {
+        return p1.m_Age > p2.m_Age;
+    }
+};
 
 void test01()
 {
-    list<int> L;
-    L.push_back(10);
-    L.push_back(50);
-    L.push_back(30);
-    L.push_back(20);
-    L.push_back(40);
+    map<Person, int, MyCompare> mp;
+    Person p1("刘备", 24);
+    Person p2("关羽", 28);
+    Person p3("张飞", 25);
+    Person p4("赵云", 21);
+    
+    //插入
+    mp.insert(make_pair(p1, 10));
+    mp.insert(make_pair(p2, 20));
+    mp.insert(make_pair(p3, 30));
+    mp.insert(make_pair(p4, 40));
 
-    cout << "排序前: ";
-    printList(L);
-
-    cout << "排序后:";
-    L.sort();
-    printList(L);
-
-    cout << "排序后:";
-    L.sort(myCompare);
-    printList(L);
+    for(map<Person, int, MyCompare>::iterator it = mp.begin(); it != mp.end(); ++it)
+    {
+        cout << "key = " << (*it).first.m_Age << "\tvalue = " << it->second << endl;
+    }
 /*
-排序前: 10 50 30 20 40 
-排序后:10 20 30 40 50 
-排序后:50 40 30 20 10 
+key = 28        value = 20
+key = 25        value = 30
+key = 24        value = 10
+key = 21        value = 40
 */
 }
-
 int main()
 {
     test01();

@@ -53,7 +53,9 @@
         "variant": "cpp",
         "fstream": "cpp",
         "cstdarg": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "map": "cpp",
+        "stack": "cpp"
     },
     "workbench.editor.wrapTabs": false,
     // "workbench.editor.showTabs": true,
