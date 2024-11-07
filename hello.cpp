@@ -1,35 +1,32 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <deque>
 #include <algorithm>
+#include <stack>
+#include <queue>
+#include <list>
+#include <set>
 using namespace std;
 
-//string获取子串
-void test01()
+void printSet(const set<int>& s)
 {
-    string str = "abcdef";
-    string subStr = str.substr(1, 3);
-    cout << "subStr = " << subStr << endl;
-    //subStr = bcd
+    for(set<int>::const_iterator it = s.begin(); it != s.end(); ++it)
+    {
+        cout << *it << " ";
+    }
+    cout << endl;
 }
 
-//实用操作
-void test02()
+void test01()
 {
-    string email = "zhangsan@sina.com";
+    set<int> s;
+    s.insert(10);
+    s.insert(10);
 
-    //从邮件中 获取 用户名信息
-    int pos = email.find("@");
-    cout << "pos = " << pos << endl;
-    //pos = 8
-
-    string usrName = email.substr(0, pos);
-    cout << "usrName = " << usrName << endl;
-    //usrName = zhangsan
 }
 
 int main()
 {
     test01();
-    test02();
 }

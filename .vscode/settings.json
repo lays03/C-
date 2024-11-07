@@ -51,7 +51,9 @@
         "text_encoding": "cpp",
         "typeinfo": "cpp",
         "variant": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "cstdarg": "cpp",
+        "list": "cpp"
     },
     "workbench.editor.wrapTabs": false,
     // "workbench.editor.showTabs": true,
