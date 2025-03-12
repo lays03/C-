@@ -1,7 +1,5 @@
 [csdn博客地址](https://blog.csdn.net/qq_42494870?type=blog)
 
-git pull test 1
-
 # 2024/09/25 第一次创建
 主要记录C++学习的内容
 
@@ -87,5 +85,4 @@ git pull test 1
 
 ## 2025.03.12
 - 智能指针shared_ptr代码实现
-- 试一下pull
  
