@@ -58,6 +58,7 @@
         "stack": "cpp"
     },
     "workbench.editor.wrapTabs": false,
+    "cmake.ignoreCMakeListsMissing": true,
     // "workbench.editor.showTabs": true,
     // "workbench.editor.enablePreview": true
 }
